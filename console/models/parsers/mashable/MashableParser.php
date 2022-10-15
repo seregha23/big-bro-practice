@@ -1,13 +1,14 @@
 <?php
 
-namespace console\models\parsers\mashableParser;
+namespace console\models\parsers\mashable;
 
+use console\models\parsers\interfaces\Parser;
 use Exception;
 use HungCP\PhpSimpleHtmlDom\HtmlDomParser;
 use yii\base\InvalidConfigException;
 use yii\httpclient\Client;
 
-class Parser {
+class MashableParser implements Parser {
     protected string $urlDomain = 'https://mashable.com';
 
     protected string $url = 'https://mashable.com/tech';
@@ -73,5 +74,4 @@ class Parser {
         }
         return $data;
     }
-
 }

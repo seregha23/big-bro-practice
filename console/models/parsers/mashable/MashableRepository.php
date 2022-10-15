@@ -1,12 +1,12 @@
 <?php
 
-namespace console\models\parsers\mashableParser;
+namespace console\models\parsers\mashable;
 
 use common\models\Image;
 use common\models\Post;
 use ReflectionException;
 
-class Repository {
+class MashableRepository {
     protected array $data;
 
     /**
@@ -14,7 +14,7 @@ class Repository {
      */
     public function execute(array $data): void {
         foreach ($data as $item) {
-            $lastPost = Post::find()->andWhere(['title' => $item['title']])->one();
+            $lastPost = Post::find()->andWhere(['title' => $item['title']])->count();
             if (!$lastPost) {
                 $lastPost              = new Post();
                 $lastPost->title       = $item['title'];
@@ -23,7 +23,9 @@ class Repository {
 
                 $image = new Image();
                 $image->saveImageByUrl($lastPost, $item['imgSrc']);
+            }
 
+            if (Post::find()->count() > 5 ) {
                 try {
                     $firstPost = Post::find()->one();
                     $firstPost->deletePostAndImage();

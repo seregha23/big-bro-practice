@@ -1,18 +1,18 @@
 <?php
 
-namespace console\models\parsers\mashableParser;
+namespace console\models\parsers\mashable;
 
+use console\models\parsers\interfaces\Parser;
 use ReflectionException;
-use yii\base\InvalidConfigException;
 use yii\httpclient\Exception;
 
-class Service {
+class MashableService {
     public function __construct(
         protected Parser $parser,
-        protected Repository $repository,
+        protected MashableRepository $repository,
     ) {}
 
-    /** @throws ReflectionException|InvalidConfigException */
+    /** @throws ReflectionException */
     public function execute(): void {
         try {
 
